@@ -1,0 +1,18 @@
+import logging
+
+class AlertingSystem:
+    def __init__(self):
+        self.alerts = []
+
+    def add_alert(self, alert):
+        self.alerts.append(alert)
+
+    def send_alerts(self):
+        for alert in self.alerts:
+            logging.error(alert)
+
+# Example usage
+alerting_system = AlertingSystem()
+alerting_system.add_alert("System failure")
+alerting_system.add_alert("Unusual activity detected")
+alerting_system.send_alerts()

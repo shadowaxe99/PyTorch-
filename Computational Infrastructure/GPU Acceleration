@@ -1,0 +1,17 @@
+import tensorflow as tf
+import torch
+
+class GPUAcceleration:
+    def __init__(self):
+        self.gpu = "Nvidia GPUs"
+    
+    def accelerate(self, model):
+        if isinstance(model, tf.keras.Model):
+            with tf.device(self.gpu):
+                return model
+        elif isinstance(model, torch.nn.Module):
+            return model.to(self.gpu)
+        else:
+            raise ValueError("Invalid model type. Only TensorFlow and PyTorch models are supported.")
+        
+accelerator = GPUAcceleration()

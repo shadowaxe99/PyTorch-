@@ -1,0 +1,10 @@
+import numpy as np
+
+class PolicyEvaluationMetrics:
+    def __init__(self, policy):
+        self.policy = policy
+    
+    def evaluate(self, state):
+        # Calculate the value of the state based on the policy
+        value = np.dot(state, self.policy)
+        return value

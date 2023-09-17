@@ -1,0 +1,29 @@
+import datetime
+
+def generate_compliance_reports():
+    current_date = datetime.date.today()
+    report_name = f"Compliance_Report_{current_date}.txt"
+    
+    # Generate compliance report
+    report_content = """
+    Compliance Report
+    
+    Date: {date}
+    
+    This report provides an overview of the compliance status of the system.
+    
+    - GDPR Compliance: In progress
+    - CCPA Compliance: Not applicable
+    - Data Protection Standards: Being followed
+    
+    Please refer to the attached documentation for detailed information.
+    
+    """.format(date=current_date)
+    
+    # Save compliance report to file
+    with open(report_name, "w") as file:
+        file.write(report_content)
+    
+    print("Compliance report generated successfully.")
+
+generate_compliance_reports()
