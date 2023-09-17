@@ -1,0 +1,88 @@
+import kubernetes
+
+def setup_kubernetes():
+    # Create a Kubernetes client
+    client = kubernetes.client.ApiClient()
+
+    # Create a Kubernetes configuration
+    config = kubernetes.client.Configuration()
+
+    # Set the configuration to use the default Kubernetes cluster
+    config.host = "https://kubernetes.default.svc.cluster.local"
+
+    # Set the authentication token
+    config.api_key = {"Authorization": "Bearer <your_token>"}
+
+    # Set the SSL verification
+    config.verify_ssl = True
+
+    # Set the client and configuration in the Kubernetes module
+    kubernetes.client.api_client = client
+    kubernetes.client.configuration = config
+
+    # Return the Kubernetes client
+    return client
+
+def create_deployment():
+    # Create a Kubernetes client
+    client = setup_kubernetes()
+
+    # Define the deployment YAML
+    deployment_yaml = """
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: my-deployment
+    spec:
+      replicas: 3
+      selector:
+        matchLabels:
+          app: my-app
+      template:
+        metadata:
+          labels:
+            app: my-app
+        spec:
+          containers:
+          - name: my-container
+            image: my-image
+            ports:
+            - containerPort: 8080
+    """
+
+    # Create the deployment
+    deployment = client.create_namespaced_deployment(
+        body=kubernetes.client.V1Deployment(
+            metadata=kubernetes.client.V1ObjectMeta(name="my-deployment"),
+            spec=kubernetes.client.V1DeploymentSpec(
+                replicas=3,
+                selector=kubernetes.client.V1LabelSelector(
+                    match_labels={"app": "my-app"}
+                ),
+                template=kubernetes.client.V1PodTemplateSpec(
+                    metadata=kubernetes.client.V1ObjectMeta(
+                        labels={"app": "my-app"}
+                    ),
+                    spec=kubernetes.client.V1PodSpec(
+                        containers=[
+                            kubernetes.client.V1Container(
+                                name="my-container",
+                                image="my-image",
+                                ports=[
+                                    kubernetes.client.V1ContainerPort(
+                                        container_port=8080
+                                    )
+                                ]
+                            )
+                        ]
+                    )
+                )
+            )
+        ),
+        namespace="default"
+    )
+
+    # Print the deployment name
+    print(f"Deployment created: {deployment.metadata.name}")
+
+create_deployment()

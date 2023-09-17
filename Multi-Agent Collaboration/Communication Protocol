@@ -1,0 +1,31 @@
+import json
+
+class CommunicationProtocol:
+    def __init__(self):
+        self.message_formats = []
+
+    def add_message_format(self, format):
+        self.message_formats.append(format)
+
+    def send_message(self, message):
+        for format in self.message_formats:
+            encoded_message = json.dumps(message)
+            # Send the encoded message using the specified format
+            # ...
+
+    def receive_message(self):
+        # Receive a message using the specified format
+        # ...
+        decoded_message = json.loads(received_message)
+        return decoded_message
+
+# Example usage
+protocol = CommunicationProtocol()
+protocol.add_message_format("JSON")
+protocol.add_message_format("XML")
+
+message = {"text": "Hello, world!"}
+protocol.send_message(message)
+
+received_message = protocol.receive_message()
+print(received_message)

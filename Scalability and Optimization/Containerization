@@ -1,0 +1,21 @@
+import docker
+
+def create_container(image_name):
+    client = docker.from_env()
+    container = client.containers.run(image_name, detach=True)
+    return container
+
+def stop_container(container_id):
+    client = docker.from_env()
+    container = client.containers.get(container_id)
+    container.stop()
+
+def remove_container(container_id):
+    client = docker.from_env()
+    container = client.containers.get(container_id)
+    container.remove()
+
+def list_containers():
+    client = docker.from_env()
+    containers = client.containers.list()
+    return containers

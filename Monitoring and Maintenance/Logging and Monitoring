@@ -1,0 +1,16 @@
+import logging
+
+# Configure the logger
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
+# Create a logger instance
+logger = logging.getLogger(__name__)
+
+# Log a message
+logger.info("This is an informational message")
+
+# Log an error
+logger.error("An error occurred")
+
+# Log a warning
+logger.warning("This is a warning message")

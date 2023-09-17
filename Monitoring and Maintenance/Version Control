@@ -1,0 +1,33 @@
+import git
+
+# Initialize a new Git repository
+repo = git.Repo.init()
+
+# Add all files to the repository
+repo.git.add(all=True)
+
+# Commit the changes with a message
+repo.git.commit('-m', 'Initial commit')
+
+# Create a new branch for development
+repo.git.branch('development')
+
+# Switch to the development branch
+repo.git.checkout('development')
+
+# Make changes to the code
+
+# Add the modified files to the repository
+repo.git.add(all=True)
+
+# Commit the changes with a message
+repo.git.commit('-m', 'Added new features')
+
+# Switch back to the main branch
+repo.git.checkout('main')
+
+# Merge the development branch into the main branch
+repo.git.merge('development')
+
+# Push the changes to the remote repository
+repo.git.push('origin', 'main')

@@ -1,0 +1,23 @@
+import apache_nifi
+
+def extract_data(source):
+    # Code for extracting data from source
+    pass
+
+def transform_data(data):
+    # Code for transforming data
+    pass
+
+def load_data(destination):
+    # Code for loading data to destination
+    pass
+
+def etl_process(source, destination):
+    data = extract_data(source)
+    transformed_data = transform_data(data)
+    load_data(destination)
+
+# Example usage
+source = "AWS S3"
+destination = "Snowflake"
+etl_process(source, destination)

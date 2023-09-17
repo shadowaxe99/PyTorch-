@@ -1,0 +1,17 @@
+import os
+import boto3
+from azure.storage.blob import BlobServiceClient
+
+def create_data_lake():
+    # Check if AWS S3 bucket exists
+    s3 = boto3.resource('s3')
+    if not s3.Bucket('my-data-lake'):
+        s3.create_bucket(Bucket='my-data-lake')
+    
+    # Check if Azure Blob Storage container exists
+    connect_str = os.getenv('AZURE_STORAGE_CONNECTION_STRING')
+    blob_service_client = BlobServiceClient.from_connection_string(connect_str)
+    if not blob_service_client.get_container_client('my-data-lake'):
+        blob_service_client.create_container('my-data-lake')
+
+create_data_lake()

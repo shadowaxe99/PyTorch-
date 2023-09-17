@@ -1,0 +1,12 @@
+import nltk
+
+# Function to perform text annotation
+def annotate_text(text):
+    # Perform text annotation using NLTK library
+    annotated_text = nltk.pos_tag(text)
+    return annotated_text
+
+# Example usage
+text = "This is a sample sentence."
+annotated_text = annotate_text(text)
+print(annotated_text)
